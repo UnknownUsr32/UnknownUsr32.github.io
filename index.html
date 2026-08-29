@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan CBT TKA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+  --navy: #16233F;
+  --navy-2: #1F3157;
+  --paper: #F6F4EE;
+  --ink: #1C1F2A;
+  --ink-soft: #5B5F6B;
+  --amber: #E7A93E;
+  --teal: #2F7566;
+  --coral: #D65F4C;
+  --line: rgba(28,31,42,0.12);
+  --line-dark: rgba(255, 255, 255, 0.16);
+  --radius: 10px;
+
+  --display: 'Poppins', sans-serif;
+  --body: 'Poppins', sans-serif;
+  --mono: 'Poppins', sans-serif;
+}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  h1,h2,h3{font-family:var(--display); letter-spacing:-0.01em;}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ===== NAVBAR ===== */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(38, 76, 146, 1);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  /* ==== PLACEHOLDER LOGO — ganti isi .logo-box dengan <img src="logo.png" alt="Nama Sekolah/Lembaga"> ==== */
+  .logo-box{
+    width:42px; height:42px; border-radius:9px;
+    border:1.5px dashed rgba(28,31,42,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:9px; letter-spacing:0.05em;
+    color:var(--ink-soft); flex-shrink:0; text-align:center;
+  }
+  .brand-name{font-family:var(--display); font-weight:700; font-size:18px;}
+  .brand-name span{color:var(--teal);}
+nav.links{
+  display:flex;
+  gap:55px;
+  font-size:17px;
+  font-weight:600;
+}  
+nav.links a{
+  color:#FFFFFF;
+  transition:color .15s;
+}  nav.links a:hover{
+  color:#F6F4EE;
+}
+  .nav-cta{display:flex; align-items:center; gap:10px;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:11px 20px; border-radius:8px; font-weight:600; font-size:14.5px;
+    cursor:pointer; border:1.5px solid transparent;
+    font-family:var(--body);
+  }
+  .btn-primary{background:#FFDE32; color:var(--navy);}
+  .btn-primary:hover{background:#F9AA31;}
+  
+  
+  .btn-ghost{
+  border-color:rgba(251,223,67,1);
+  color:#FFFFFF;
+}
+  .btn-ghost:hover{border-color:#FFFFFF;}
+  
+  
+  .btn-ghost2{background:#2E4B90; color:var(--paper);}
+  .btn-ghost2:hover{background:var(--navy-2);}
+  
+  .btn-amber{background:#FFDE32; color:var(--navy);}
+  .btn-amber:hover{background:#d99a2b;}
+  .hide-mobile{display:flex;}
+
+  /* ===== HERO ===== */
+  .hero{padding:76px 0 90px;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--teal); font-weight:600; display:flex; align-items:center; gap:8px; margin-bottom:18px;
+  }
+  .eyebrow::before{content:""; width:16px; height:1.5px; background:var(--teal);}
+  .hero h1{
+    font-size:clamp(34px, 4.6vw, 54px); font-weight:700; line-height:1.05; color:var(--navy);
+    margin-bottom:20px;
+  }
+  .hero h1 em{font-style:normal; color:var(--teal);}
+  .hero p.lead{font-size:17px; color:var(--ink-soft); max-width:480px; margin-bottom:30px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px;}
+  .hero-stats{display:flex; gap:32px; flex-wrap:wrap;}
+  .hero-stats .stat b{font-family:var(--display); font-size:22px; display:block; color:var(--navy);}
+  .hero-stats .stat span{font-size:12.5px; color:var(--ink-soft);}
+
+  /* ---- signature: mock exam widget ---- */
+  .exam-card{
+    background:var(--navy); color:var(--paper); border-radius:16px;
+    padding:22px; box-shadow:0 24px 48px -20px rgba(22,35,63,0.45);
+    position:relative;
+  }
+  .exam-topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:12px; color:rgba(255, 255, 255, 0.6);
+    padding-bottom:14px; border-bottom:1px solid var(--line-dark); margin-bottom:16px;
+  }
+  .exam-timer{
+    display:flex; align-items:center; gap:7px; color:var(--amber); font-weight:600;
+  }
+  .exam-timer .dot{width:7px; height:7px; border-radius:50%; background:var(--coral);}
+  .exam-q-label{font-family:var(--mono); font-size:12px; color:rgba(255, 255, 255, 0.55); margin-bottom:8px;}
+  .exam-q-text{font-size:15.5px; line-height:1.5; margin-bottom:20px; color:#F0EFE9;}
+  .exam-options{display:flex; flex-direction:column; gap:9px; margin-bottom:20px;}
+  .exam-opt{
+    display:flex; align-items:center; gap:12px;
+    padding:11px 13px; border-radius:9px; border:1px solid var(--line-dark);
+    font-size:14px; cursor:default; transition:border-color .2s, background .2s;
+  }
+  .exam-opt .bubble{
+    width:24px; height:24px; border-radius:50%; border:1.5px solid rgba(255, 255, 255, 1);
+    display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:11.5px;
+    flex-shrink:0;
+  }
+  .exam-opt.selected{border-color:var(--amber); background:rgba(231,169,62,0.1);}
+  .exam-opt.selected .bubble{background:var(--amber); border-color:var(--amber); color:var(--navy); font-weight:700;}
+  .exam-progress-track{height:5px; border-radius:4px; background:var(--line-dark); overflow:hidden; margin-bottom:10px;}
+  .exam-progress-fill{height:100%; width:42%; background:var(--teal); border-radius:4px;}
+  .exam-footer{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11.5px; color:rgba(255, 255, 255, 0.55);}
+
+  /* ===== SUBTES STRIP ===== */
+  .subtes-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:#EFEBE0;}
+  .subtes-inner{display:flex; gap:10px; overflow-x:auto; padding:18px 24px; max-width:1160px; margin:0 auto;}
+  .subtes-chip{
+    flex-shrink:0; font-family:var(--mono); font-size:12.5px; padding:9px 16px; border-radius:100px;
+    background:var(--paper); border:1px solid var(--line); color:var(--ink); white-space:nowrap;
+  }
+
+  /* ===== SECTION generic ===== */
+  section{padding:88px 0;}
+  .section-head{max-width:600px; margin-bottom:48px;}
+  .section-head .eyebrow{color:var(--coral);}
+  .section-head .eyebrow::before{background:var(--coral);}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px); color:var(--navy); font-weight:700; margin-bottom:12px;}
+  .section-head p{color:var(--ink-soft); font-size:15.5px;}
+
+  /* fitur cards */
+  .fitur-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  .fitur-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 22px;
+  }
+  .fitur-icon{
+    width:38px; height:38px; border-radius:9px; background:rgba(47,117,102,0.1); color:var(--teal);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px; font-size:17px;
+  }
+  .fitur-card h3{font-size:16px; margin-bottom:8px; color:var(--navy);}
+  .fitur-card p{font-size:13.8px; color:var(--ink-soft);}
+
+  /* cara kerja */
+  .langkah-wrap{background:#DEEEFD; color:var(--paper);}
+  .langkah-wrap,
+.langkah-wrap h2,
+.langkah-wrap h3,
+.langkah-wrap p,
+.langkah-wrap .eyebrow,
+.langkah-wrap .num{
+  color:var(--navy) !important;
+}
+  .langkah-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0;}
+  .langkah{padding:0 28px 0 0; position:relative;}
+  .langkah:not(:last-child)::after{
+    content:""; position:absolute; top:22px; right:-14px; width:28px; height:1px;
+    background:var(--line-dark);
+  }
+  .langkah .num{font-family:var(--mono); font-size:13px; color:var(--amber); margin-bottom:14px;}
+  .langkah h3{font-size:17px; margin-bottom:10px;}
+  .langkah p{font-size:14px; color:rgba(255, 255, 255, 0.65);}
+
+  /* statistik band */
+  .stat-band{background:#EFEBE0;}
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center;}
+  .stat-grid .stat b{font-family:var(--display); font-size:clamp(30px,4vw,42px); color:var(--navy); display:block;}
+  .stat-grid .stat span{font-size:13px; color:var(--ink-soft);}
+
+  /* testimoni */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .testi-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:24px;}
+  .testi-quote{font-size:14.5px; color:var(--ink); margin-bottom:18px; line-height:1.6;}
+  .testi-person{display:flex; align-items:center; gap:10px;}
+  .testi-avatar{width:36px; height:36px; border-radius:50%; background:var(--line); flex-shrink:0;}
+  .testi-name{font-size:13.5px; font-weight:600;}
+  .testi-role{font-size:12px; color:var(--ink-soft);}
+
+  /* CTA band */
+  .cta-band{
+    background:var(--navy); color:var(--paper); border-radius:20px; margin:0 24px;
+    padding:56px 40px; text-align:center; max-width:1112px; margin:0 auto;
+  }
+  .cta-band h2{font-size:clamp(24px,3vw,32px); margin-bottom:14px;}
+  .cta-band p{color:rgba(255, 255, 255, 0.7); margin-bottom:26px; font-size:15px;}
+  .cta-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+
+  /* footer */
+/* footer */
+footer{
+  background:#2E4B90;
+  color:#FFFFFF;
+  border-top:1px solid rgba(255,255,255,0.15);
+  padding:48px 0 28px;
+  margin-top:40px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1fr;
+  gap:32px;
+  margin-bottom:36px;
+}
+
+.footer-brand .logo-box{
+  margin-bottom:14px;
+}
+
+.footer-brand p{
+  font-size:13.5px;
+  color:rgba(255,255,255,0.8);
+  max-width:240px;
+}
+
+.footer-col h4{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:#FFFFFF;
+  margin-bottom:14px;
+}
+
+.footer-col a{
+  display:block;
+  font-size:14px;
+  color:rgba(255,255,255,0.8);
+  margin-bottom:10px;
+  transition:color 0.2s;
+}
+
+.footer-col a:hover{
+  color:#FFDE32;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.15);
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12.5px;
+  color:rgba(255,255,255,0.75);
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:900px){
+    nav.links, .hide-mobile{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .fitur-grid{grid-template-columns:repeat(2,1fr);}
+    .langkah-grid{grid-template-columns:1fr; gap:28px;}
+    .langkah:not(:last-child)::after{display:none;}
+    .stat-grid{grid-template-columns:repeat(2,1fr); row-gap:28px;}
+    .testi-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .fitur-grid{grid-template-columns:1fr;}
+    .hero-actions{flex-direction:column; align-items:stretch;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+  .youtube-wrapper {
+  width: min(1000px, 90%);
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -18px rgba(22, 35, 63, 0.35);
+}
+
+.youtube-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+/* ===== LATIHAN LIST ===== */
+
+#latihan{
+  padding:80px 0;
+}
+
+.latihan-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+}
+
+.latihan-header h2{
+  font-size:32px;
+  color:var(--navy);
+  font-weight:700;
+}
+
+.progress-filter{
+  font-family:var(--body);
+  border:1px solid var(--line);
+  background:#FFFFFF;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+
+/* horizontal container */
+.latihan-list{
+  display:flex;
+  gap:18px;
+
+  overflow-x:auto;
+  padding:5px 2px 20px;
+
+  scroll-snap-type:x mandatory;
+}
+
+
+/* individual card */
+
+.latihan-card{
+  min-width:300px;
+  flex:1;
+
+  background:#E5F0FF;
+  border-radius:14px;
+
+  padding:20px;
+
+  scroll-snap-align:start;
+
+  transition:
+    transform .2s,
+    box-shadow .2s;
+}
+
+.latihan-card:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 10px 25px rgba(22,35,63,0.12);
+}
+
+
+/* card upper section */
+
+.latihan-top{
+  display:flex;
+  align-items:center;
+
+  margin-bottom:16px;
+
+  min-width:0;
+}
+
+.latihan-icon{
+  width:30px;
+  height:30px;
+
+  border-radius:7px;
+
+  background:#A9C8E9;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-right:10px;
+
+  color:#2E4B90;
+  font-weight:700;
+
+  flex-shrink:0;
+}
+
+.latihan-title{
+  font-weight:600;
+  font-size:14px;
+
+  color:var(--navy);
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+
+  flex:1;
+}
+
+.latihan-percent{
+  font-size:13px;
+  font-weight:600;
+
+  color:var(--navy);
+
+  margin-left:12px;
+}
+
+
+/* progress bar */
+
+.progress-bar{
+  width:100%;
+  height:7px;
+
+  background:#CBD8E8;
+
+  border-radius:50px;
+
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+
+  background:#3674BD;
+
+  border-radius:50px;
+}
+
+
+/* scrollbar */
+
+.latihan-list::-webkit-scrollbar{
+  height:7px;
+}
+
+.latihan-list::-webkit-scrollbar-track{
+  background:transparent;
+}
+
+.latihan-list::-webkit-scrollbar-thumb{
+  background:#C5CED9;
+  border-radius:20px;
+}
+.center-text {
+  text-align: center;
+}
+/* ===== VIDEO MATERI ===== */
+
+.video-materi-section{
+  padding:80px 0;
+  background:var(--paper);
+}
+
+.video-subject{
+  margin-bottom:65px;
+}
+
+.video-subject:last-child{
+  margin-bottom:0;
+}
+
+.video-subject h2{
+  text-align:center;
+  color:var(--navy);
+  font-size:34px;
+  font-weight:700;
+  margin-bottom:30px;
+}
+
+.video-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.video-card{
+  background:#FFFFFF;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(22,35,63,0.15);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.video-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 30px rgba(22,35,63,0.22);
+}
+
+.video-card iframe{
+  width:100%;
+  aspect-ratio:16 / 9;
+  border:0;
+  display:block;
+}
+
+@media (max-width:900px){
+  .video-row{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (max-width:600px){
+  .video-row{
+    grid-template-columns:1fr;
+  }
+
+  .video-subject h2{
+    font-size:27px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">
+     <img src="TekaTeki.png" alt="Nama Lembaga" style="width:200px;height:100px;border-radius:9px;">
+    </div>
+    <nav class="links hide-mobile">
+      <a href="#subtes">Beranda</a>
+      <a href="#fitur">Materi Belajar</a>
+      <a href="#cara-kerja">Tryout Online</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-ghost hide-mobile">Masuk</a>
+      <a href="#" class="btn btn-primary">Kerjakan</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1><strong>Halo, Pejuang TKA!</strong></h1>
+        <h2 style="margin-bottom: 24px;">Ayo Belajar Bersama Beta.</h2>
+        <div class="hero-actions" style="display: flex; gap: 20px;">
+          <a href="#" class="btn btn-amber">Mulai Latihan Sekarang</a>
+          <a href="#subtes" class="btn btn-ghost2">Lihat Semua Subtes</a>
+        </div>
+
+      </div>
+
+      <div>
+      
+	<img src="Mascot.png" alt="Nama Lembaga" style="width:370px;height:481px;border-radius:9px;">
+
+      </div>
+    </div>
+  </section>
+
+ 
+
+<section id="fitur">
+<h1 class="center-text" style="margin-bottom: 30px;">Video Sosialisasi Persiapan TKA 2026</h1>
+  <div class="youtube-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/Mc918NNYsfU"
+      title="Video TKA"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+  <section class="langkah-wrap" id="cara-kerja">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow" style="color:var(--amber);">Cara Kerja</div>
+        <div class="eyebrow" style="display:none;"></div>
+        <h2 style="color:var(--paper);">Cara Menggunakan Website</h2>
+      </div>
+      <div class="langkah-grid">
+        <div class="langkah">
+          <div class="num">01</div>
+          <h3>Pilih Subtes</h3>
+          <p>Tentukan subtes yang ingin dikerjakan.</p>
+        </div>
+        <div class="langkah">
+          <div class="num">02</div>
+          <h3>Kerjakan dengan Waktu yang Disediakan</h3>
+          <p>Jawab soal dalam CBT dengan waktu yang disediakan.</p>
+        </div>
+        <div class="langkah">
+          <div class="num">03</div>
+          <h3>Cek Hasil</h3>
+          <p>Lihat nilai try out anda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+
+
+  <section>
+    <div class="cta-band">
+      <h2>Penasaran sejauh mana persiapanmu?</h2>
+      <p>Yuk coba tryout-nya sekarang!</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-amber">Mulai Sekarang</a>
+        <a href="#" class="btn btn-ghost" style="border-color:var(--line-dark); color:var(--paper);">Pelajari Lebih Lanjut</a>
+      </div>
+    </div>
+  </section>
+  
+  <section id="latihan">
+  <div class="wrap">
+
+    <div class="latihan-header">
+      <h2>Progress Latihan Mapel Wajib</h2>
+
+      <select class="progress-filter">
+        <option>Progress</option>
+        <option>Belum Dimulai</option>
+        <option>Sedang Dikerjakan</option>
+        <option>Selesai</option>
+      </select>
+    </div>
+
+    <div class="latihan-list">
+
+      
+
+      <div class="latihan-card">
+        <div class="latihan-top">
+          <span class="latihan-icon">⌁</span>
+          <span class="latihan-title">Matematika Umum</span>
+          <span class="latihan-percent">90%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:90%"></div>
+        </div>
+      </div>
+
+      <div class="latihan-card">
+        <div class="latihan-top">
+          <span class="latihan-icon">✓</span>
+          <span class="latihan-title">Bahasa Indonesia</span>
+          <span class="latihan-percent">45%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:45%"></div>
+        </div>
+      </div>
+
+      <div class="latihan-card">
+        <div class="latihan-top">
+          <span class="latihan-icon">▦</span>
+          <span class="latihan-title">Bahasa Inggris</span>
+          <span class="latihan-percent">10%</span>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width:10%"></div>
+        </div>
+      </div>
+
+     
+
+    </div>
+
+  </div>
+</section>
+
+<section class="video-materi-section" id="materi-video">
+  <div class="wrap">
+
+    <div class="video-subject">
+      <h2>Matematika Umum</h2>
+
+      <div class="video-row">
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/IxrNZtGAH5M"
+            title="Matematika Umum Video 1"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/aVitO3HmDrs"
+            title="Matematika Umum Video 2"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/aOkF3HioRpU"
+            title="Matematika Umum Video 3"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="video-subject">
+      <h2>Bahasa Indonesia</h2>
+
+      <div class="video-row">
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PLItuDoASEGkwgcUDF1XeFe4tUv2kOxp8F"
+            title="Bahasa Indonesia Playlist 1"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/25P-KYLEh0c"
+            title="Bahasa Indonesia Video 2"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PLe2IohcMpTr0"
+            title="Bahasa Indonesia Playlist 3"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="video-subject">
+      <h2>Bahasa Inggris</h2>
+
+      <div class="video-row">
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/ffOkTyYlq6o"
+            title="Bahasa Inggris Video 1"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/F2v6s-a1qp4"
+            title="Bahasa Inggris Video 2"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-card">
+          <iframe
+            src="https://www.youtube.com/embed/dmvJRImSvNU"
+            title="Bahasa Inggris Video 3"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+             <img src="TekaTeki.png" alt="Nama Lembaga" style="width:192px;height:96px;border-radius:9px;">
+
+        <p>Website Latihan Test Kemampuan Akademik Berbasis Soal Tahun Lalu</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <a href="#subtes">Subtes</a>
+        <a href="#fitur">Fitur</a>
+        <a href="#cara-kerja">Cara Kerja</a>
+      </div>
+      <div class="footer-col">
+        <h4>Bantuan</h4>
+        <a href="#">Pusat Bantuan</a>
+        <a href="#">Hubungi Kami</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Syarat &amp; Ketentuan</a>
+        <a href="#">Kebijakan Privasi</a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+</body>
+</html>
